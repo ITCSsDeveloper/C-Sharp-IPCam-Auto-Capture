@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Windows.Forms;
-using AForge.Video;
+﻿using AForge.Video;
 using AForge.Video.DirectShow;
+using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace IpCam
 {
     public partial class Form1 : Form
     {
-        FilterInfoCollection videoDevices;
-        VideoCaptureDevice videoSource;
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
 
         public Form1()
         {
@@ -38,7 +33,6 @@ namespace IpCam
 
             videoSource = new VideoCaptureDevice();
             combo_cam.SelectedIndex = 0;
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -64,10 +58,10 @@ namespace IpCam
             }
         }
 
-        void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-                Thread.Sleep(100);
-                pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
+            Thread.Sleep(100);
+            pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -100,15 +94,15 @@ namespace IpCam
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-          //  this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText("time1 work \n"); });
+            //  this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText("time1 work \n"); });
             Thread TT = new Thread(capture);
             TT.Start();
         }
 
-        Int64 k = 1;
+        private Int64 k = 1;
 
-        Int64 QualitySave = 60;
-        Int64 QualityPreview = 35;
+        private Int64 QualitySave = 60;
+        private Int64 QualityPreview = 35;
 
         private void capture()
         {
@@ -145,7 +139,6 @@ namespace IpCam
             }
             catch (Exception e)
             {
-
             }
         }
 
@@ -162,14 +155,14 @@ namespace IpCam
             return null;
         }
 
-
-        DateTime now = DateTime.Now;
-        bool flag = true;
+        private DateTime now = DateTime.Now;
+        private bool flag = true;
 
         private void timer2_Tick(object sender, EventArgs e)
         {
             now = DateTime.Now;
-            if (flag == false) {
+            if (flag == false)
+            {
                 return;
             }
 
@@ -180,13 +173,10 @@ namespace IpCam
             }
         }
 
-
-
         private void move_img()
         {
-          //  this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText("move_img work \n"); });
+            //  this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText("move_img work \n"); });
             flag = false; // กัน timer2 เข้ามาทำ ขณะที่ทำงานอยู่
-           
 
             string cameraName = textCamName.Text;
 
@@ -203,15 +193,13 @@ namespace IpCam
                 this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText(cameraName + " create! \n"); });
 
                 this.Invoke((MethodInvoker)delegate() { richTextBox1.AppendText("Finished BackUP! " + now.ToString() + "\n"); });
-
             }
             catch (IOException ex)
-            {  }
-        
-            k = 1;
-           
-            this.Invoke((MethodInvoker)delegate() { richTextBox1.ScrollToCaret(); });
+            { }
 
+            k = 1;
+
+            this.Invoke((MethodInvoker)delegate() { richTextBox1.ScrollToCaret(); });
 
             Thread.Sleep(1000 * 65);
             flag = true;
