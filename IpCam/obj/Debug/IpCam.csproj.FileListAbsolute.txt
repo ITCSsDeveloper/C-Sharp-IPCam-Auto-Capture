@@ -1,0 +1,26 @@
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\bin\Debug\IpCam.exe
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\bin\Debug\IpCam.pdb
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.Form1.resources
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.Properties.Resources.resources
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.csproj.GenerateResource.Cache
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.exe
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.pdb
+C:\Users\_TAPLONYYY\documents\visual studio 2013\Projects\IpCam\IpCam\obj\Debug\IpCam.csprojResolveAssemblyReference.cache
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.exe
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.pdb
+D:\OneDrive\Projects\IpCam\IpCam\bin\Debug\IpCam.exe
+D:\OneDrive\Projects\IpCam\IpCam\bin\Debug\IpCam.pdb
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.csprojResolveAssemblyReference.cache
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.Form1.resources
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.Properties.Resources.resources
+D:\OneDrive\Projects\IpCam\IpCam\obj\Debug\IpCam.csproj.GenerateResource.Cache
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.exe
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.pdb
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\bin\Debug\IpCam.exe
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\bin\Debug\IpCam.pdb
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.csprojResolveAssemblyReference.cache
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.Form1.resources
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.Properties.Resources.resources
+C:\Users\Ratchanon\OneDrive\MyProject\C# IpCam\IpCam\obj\Debug\IpCam.csproj.GenerateResource.Cache
+D:\OneDrive\My C#Project\C# IpCam\IpCam\obj\Debug\IpCam.exe
+D:\OneDrive\My C#Project\C# IpCam\IpCam\obj\Debug\IpCam.pdb
