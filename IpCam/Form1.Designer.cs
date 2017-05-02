@@ -30,37 +30,43 @@
         {
             this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btnConnectCam = new System.Windows.Forms.Button();
+            this.btnRecord = new System.Windows.Forms.Button();
+            this.btnStop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.combo_time = new System.Windows.Forms.ComboBox();
+            this.cbbTimeInterval = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.combo_cam = new System.Windows.Forms.ComboBox();
+            this.cbbCamName = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.text_status = new System.Windows.Forms.TextBox();
+            this.txtFrame = new System.Windows.Forms.TextBox();
+            this.txtStatus = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.textParthSave = new System.Windows.Forms.TextBox();
+            this.txtParthSave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textQualitySave = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.textQualityPreview = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.textParthPreview = new System.Windows.Forms.TextBox();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.textBackup_h = new System.Windows.Forms.TextBox();
-            this.textBackup_m = new System.Windows.Forms.TextBox();
+            this.txtParthPreview = new System.Windows.Forms.TextBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.label10 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.textCamName = new System.Windows.Forms.TextBox();
+            this.txtConsole = new System.Windows.Forms.RichTextBox();
+            this.txtCamName = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
+            this.textQualitySave = new System.Windows.Forms.NumericUpDown();
+            this.txtQualityPreview = new System.Windows.Forms.NumericUpDown();
+            this.bgMoveImage = new System.ComponentModel.BackgroundWorker();
+            this.bgSaveImage = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.txtHours = new System.Windows.Forms.NumericUpDown();
+            this.txtMinute = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textQualitySave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQualityPreview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHours)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtMinute)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -73,35 +79,35 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // button1
+            // btnConnectCam
             // 
-            this.button1.Location = new System.Drawing.Point(248, 51);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(176, 37);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Connect Cam";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnConnectCam.Location = new System.Drawing.Point(248, 51);
+            this.btnConnectCam.Name = "btnConnectCam";
+            this.btnConnectCam.Size = new System.Drawing.Size(176, 37);
+            this.btnConnectCam.TabIndex = 1;
+            this.btnConnectCam.Text = "Connect Cam";
+            this.btnConnectCam.UseVisualStyleBackColor = true;
+            this.btnConnectCam.Click += new System.EventHandler(this.btnConnectCam_Click);
             // 
-            // button2
+            // btnRecord
             // 
-            this.button2.Location = new System.Drawing.Point(248, 134);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(176, 37);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Record";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.btnRecord.Location = new System.Drawing.Point(248, 134);
+            this.btnRecord.Name = "btnRecord";
+            this.btnRecord.Size = new System.Drawing.Size(176, 37);
+            this.btnRecord.TabIndex = 2;
+            this.btnRecord.Text = "Record";
+            this.btnRecord.UseVisualStyleBackColor = true;
+            this.btnRecord.Click += new System.EventHandler(this.btnRecord_Click);
             // 
-            // button3
+            // btnStop
             // 
-            this.button3.Location = new System.Drawing.Point(248, 177);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(176, 37);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Stop";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.btnStop.Location = new System.Drawing.Point(248, 177);
+            this.btnStop.Name = "btnStop";
+            this.btnStop.Size = new System.Drawing.Size(176, 37);
+            this.btnStop.TabIndex = 3;
+            this.btnStop.Text = "Stop";
+            this.btnStop.UseVisualStyleBackColor = true;
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
             // label1
             // 
@@ -112,14 +118,25 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "IPCam-Recorder:  1-3 ITCS\'s Developer";
             // 
-            // combo_time
+            // cbbTimeInterval
             // 
-            this.combo_time.FormattingEnabled = true;
-            this.combo_time.Location = new System.Drawing.Point(248, 107);
-            this.combo_time.Name = "combo_time";
-            this.combo_time.Size = new System.Drawing.Size(176, 21);
-            this.combo_time.TabIndex = 5;
-            this.combo_time.Text = "1";
+            this.cbbTimeInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbTimeInterval.FormattingEnabled = true;
+            this.cbbTimeInterval.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.cbbTimeInterval.Location = new System.Drawing.Point(248, 107);
+            this.cbbTimeInterval.Name = "cbbTimeInterval";
+            this.cbbTimeInterval.Size = new System.Drawing.Size(176, 21);
+            this.cbbTimeInterval.TabIndex = 5;
             // 
             // label2
             // 
@@ -130,39 +147,39 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "seconds";
             // 
-            // combo_cam
+            // cbbCamName
             // 
-            this.combo_cam.FormattingEnabled = true;
-            this.combo_cam.Location = new System.Drawing.Point(248, 24);
-            this.combo_cam.Name = "combo_cam";
-            this.combo_cam.Size = new System.Drawing.Size(176, 21);
-            this.combo_cam.TabIndex = 7;
-            this.combo_cam.Text = "1";
+            this.cbbCamName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbCamName.FormattingEnabled = true;
+            this.cbbCamName.Location = new System.Drawing.Point(248, 24);
+            this.cbbCamName.Name = "cbbCamName";
+            this.cbbCamName.Size = new System.Drawing.Size(176, 21);
+            this.cbbCamName.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(248, 8);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 13);
+            this.label3.Size = new System.Drawing.Size(62, 13);
             this.label3.TabIndex = 8;
-            this.label3.Text = "Cam Name";
+            this.label3.Text = "Camera List";
             // 
-            // textBox1
+            // txtFrame
             // 
-            this.textBox1.Location = new System.Drawing.Point(97, 228);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(71, 20);
-            this.textBox1.TabIndex = 9;
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtFrame.Location = new System.Drawing.Point(97, 228);
+            this.txtFrame.Name = "txtFrame";
+            this.txtFrame.Size = new System.Drawing.Size(71, 20);
+            this.txtFrame.TabIndex = 9;
+            this.txtFrame.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // text_status
+            // txtStatus
             // 
-            this.text_status.Location = new System.Drawing.Point(236, 228);
-            this.text_status.Name = "text_status";
-            this.text_status.Size = new System.Drawing.Size(188, 20);
-            this.text_status.TabIndex = 10;
-            this.text_status.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.txtStatus.Location = new System.Drawing.Point(236, 228);
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(188, 20);
+            this.txtStatus.TabIndex = 10;
+            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label4
             // 
@@ -182,18 +199,13 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Status";
             // 
-            // timer1
+            // txtParthSave
             // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // textParthSave
-            // 
-            this.textParthSave.Location = new System.Drawing.Point(97, 254);
-            this.textParthSave.Name = "textParthSave";
-            this.textParthSave.Size = new System.Drawing.Size(327, 20);
-            this.textParthSave.TabIndex = 13;
-            this.textParthSave.Text = "D:\\cam";
+            this.txtParthSave.Location = new System.Drawing.Point(97, 254);
+            this.txtParthSave.Name = "txtParthSave";
+            this.txtParthSave.Size = new System.Drawing.Size(327, 20);
+            this.txtParthSave.TabIndex = 13;
+            this.txtParthSave.Text = "D:\\cam";
             // 
             // label6
             // 
@@ -203,14 +215,6 @@
             this.label6.Size = new System.Drawing.Size(69, 13);
             this.label6.TabIndex = 14;
             this.label6.Text = "Parth Save : ";
-            // 
-            // textQualitySave
-            // 
-            this.textQualitySave.Location = new System.Drawing.Point(441, 25);
-            this.textQualitySave.Name = "textQualitySave";
-            this.textQualitySave.Size = new System.Drawing.Size(127, 20);
-            this.textQualitySave.TabIndex = 15;
-            this.textQualitySave.Text = "60";
             // 
             // label7
             // 
@@ -230,14 +234,6 @@
             this.label8.TabIndex = 17;
             this.label8.Text = "Quality to preveiw";
             // 
-            // textQualityPreview
-            // 
-            this.textQualityPreview.Location = new System.Drawing.Point(441, 79);
-            this.textQualityPreview.Name = "textQualityPreview";
-            this.textQualityPreview.Size = new System.Drawing.Size(127, 20);
-            this.textQualityPreview.TabIndex = 18;
-            this.textQualityPreview.Text = "35";
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -247,35 +243,19 @@
             this.label9.TabIndex = 20;
             this.label9.Text = "Parth Preview : ";
             // 
-            // textParthPreview
+            // txtParthPreview
             // 
-            this.textParthPreview.Location = new System.Drawing.Point(97, 280);
-            this.textParthPreview.Name = "textParthPreview";
-            this.textParthPreview.Size = new System.Drawing.Size(327, 20);
-            this.textParthPreview.TabIndex = 19;
-            this.textParthPreview.Text = "D:\\VM Share File\\ipcam\\cam.bmp";
+            this.txtParthPreview.Location = new System.Drawing.Point(97, 280);
+            this.txtParthPreview.Name = "txtParthPreview";
+            this.txtParthPreview.Size = new System.Drawing.Size(327, 20);
+            this.txtParthPreview.TabIndex = 19;
+            this.txtParthPreview.Text = "D:\\VM Share File\\ipcam\\cam.bmp";
             // 
-            // timer2
+            // timer
             // 
-            this.timer2.Enabled = true;
-            this.timer2.Interval = 1000;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // textBackup_h
-            // 
-            this.textBackup_h.Location = new System.Drawing.Point(441, 150);
-            this.textBackup_h.Name = "textBackup_h";
-            this.textBackup_h.Size = new System.Drawing.Size(47, 20);
-            this.textBackup_h.TabIndex = 21;
-            this.textBackup_h.Text = "23";
-            // 
-            // textBackup_m
-            // 
-            this.textBackup_m.Location = new System.Drawing.Point(505, 150);
-            this.textBackup_m.Name = "textBackup_m";
-            this.textBackup_m.Size = new System.Drawing.Size(47, 20);
-            this.textBackup_m.TabIndex = 22;
-            this.textBackup_m.Text = "55";
+            this.timer.Enabled = true;
+            this.timer.Interval = 1000;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // label10
             // 
@@ -304,30 +284,96 @@
             this.label12.TabIndex = 25;
             this.label12.Text = "m";
             // 
-            // richTextBox1
+            // txtConsole
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(441, 177);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(218, 153);
-            this.richTextBox1.TabIndex = 26;
-            this.richTextBox1.Text = "";
+            this.txtConsole.Location = new System.Drawing.Point(441, 177);
+            this.txtConsole.Name = "txtConsole";
+            this.txtConsole.Size = new System.Drawing.Size(218, 153);
+            this.txtConsole.TabIndex = 26;
+            this.txtConsole.Text = "";
             // 
-            // textCamName
+            // txtCamName
             // 
-            this.textCamName.Location = new System.Drawing.Point(494, 106);
-            this.textCamName.Name = "textCamName";
-            this.textCamName.Size = new System.Drawing.Size(74, 20);
-            this.textCamName.TabIndex = 27;
-            this.textCamName.Text = "cam";
+            this.txtCamName.Location = new System.Drawing.Point(502, 106);
+            this.txtCamName.Name = "txtCamName";
+            this.txtCamName.Size = new System.Drawing.Size(74, 20);
+            this.txtCamName.TabIndex = 27;
+            this.txtCamName.Text = "cam";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(438, 110);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(56, 13);
+            this.label13.Size = new System.Drawing.Size(58, 13);
             this.label13.TabIndex = 28;
-            this.label13.Text = "CamName";
+            this.label13.Text = "Can Folder";
+            // 
+            // textQualitySave
+            // 
+            this.textQualitySave.Location = new System.Drawing.Point(441, 25);
+            this.textQualitySave.Name = "textQualitySave";
+            this.textQualitySave.Size = new System.Drawing.Size(135, 20);
+            this.textQualitySave.TabIndex = 29;
+            this.textQualitySave.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // txtQualityPreview
+            // 
+            this.txtQualityPreview.Location = new System.Drawing.Point(441, 79);
+            this.txtQualityPreview.Name = "txtQualityPreview";
+            this.txtQualityPreview.Size = new System.Drawing.Size(135, 20);
+            this.txtQualityPreview.TabIndex = 30;
+            this.txtQualityPreview.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // bgMoveImage
+            // 
+            this.bgMoveImage.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgMoveImage_DoWork);
+            // 
+            // bgSaveImage
+            // 
+            this.bgSaveImage.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgSaveImage_DoWork);
+            // 
+            // txtHours
+            // 
+            this.txtHours.Location = new System.Drawing.Point(445, 152);
+            this.txtHours.Maximum = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.txtHours.Name = "txtHours";
+            this.txtHours.Size = new System.Drawing.Size(40, 20);
+            this.txtHours.TabIndex = 31;
+            this.txtHours.Value = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            // 
+            // txtMinute
+            // 
+            this.txtMinute.Location = new System.Drawing.Point(510, 151);
+            this.txtMinute.Maximum = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.txtMinute.Name = "txtMinute";
+            this.txtMinute.Size = new System.Drawing.Size(40, 20);
+            this.txtMinute.TabIndex = 32;
+            this.txtMinute.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
             // 
             // Form1
             // 
@@ -335,40 +381,43 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(669, 344);
+            this.Controls.Add(this.txtMinute);
+            this.Controls.Add(this.txtHours);
+            this.Controls.Add(this.txtQualityPreview);
+            this.Controls.Add(this.textQualitySave);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.textCamName);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.txtCamName);
+            this.Controls.Add(this.txtConsole);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.label10);
-            this.Controls.Add(this.textBackup_m);
-            this.Controls.Add(this.textBackup_h);
             this.Controls.Add(this.label9);
-            this.Controls.Add(this.textParthPreview);
-            this.Controls.Add(this.textQualityPreview);
+            this.Controls.Add(this.txtParthPreview);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textQualitySave);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textParthSave);
+            this.Controls.Add(this.txtParthSave);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.text_status);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtStatus);
+            this.Controls.Add(this.txtFrame);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.combo_cam);
+            this.Controls.Add(this.cbbCamName);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.combo_time);
+            this.Controls.Add(this.cbbTimeInterval);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnStop);
+            this.Controls.Add(this.btnRecord);
+            this.Controls.Add(this.btnConnectCam);
             this.Controls.Add(this.pictureBox1);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IPCam-Recorder";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textQualitySave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtQualityPreview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHours)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtMinute)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,36 +426,38 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btnConnectCam;
+        private System.Windows.Forms.Button btnRecord;
+        private System.Windows.Forms.Button btnStop;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox combo_time;
+        private System.Windows.Forms.ComboBox cbbTimeInterval;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox combo_cam;
+        private System.Windows.Forms.ComboBox cbbCamName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox text_status;
+        private System.Windows.Forms.TextBox txtFrame;
+        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.TextBox textParthSave;
+        private System.Windows.Forms.TextBox txtParthSave;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textQualitySave;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.TextBox textQualityPreview;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textParthPreview;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.TextBox textBackup_h;
-        private System.Windows.Forms.TextBox textBackup_m;
+        private System.Windows.Forms.TextBox txtParthPreview;
+        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.TextBox textCamName;
+        private System.Windows.Forms.RichTextBox txtConsole;
+        private System.Windows.Forms.TextBox txtCamName;
         private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown textQualitySave;
+        private System.Windows.Forms.NumericUpDown txtQualityPreview;
+        private System.ComponentModel.BackgroundWorker bgMoveImage;
+        private System.ComponentModel.BackgroundWorker bgSaveImage;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.NumericUpDown txtHours;
+        private System.Windows.Forms.NumericUpDown txtMinute;
     }
 }
 
