@@ -1,7 +1,6 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
 using System;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -14,8 +13,6 @@ namespace IpCam
     public partial class Form1 : Form
     {
         private int FrameNumber { get; set; }
-        private int QualitySave { get; set; }
-        private int QualityPreview { get; set; }
 
         private FilterInfoCollection VideoDevices { get; set; }
         private VideoCaptureDevice VideoSource { get; set; }
@@ -23,10 +20,6 @@ namespace IpCam
         public Form1()
         {
             InitializeComponent();
-
-            FrameNumber = 1;
-            QualitySave = 60;
-            QualityPreview = 35;
 
             VideoSource = new VideoCaptureDevice();
             VideoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
@@ -69,8 +62,7 @@ namespace IpCam
                 VideoSource.Stop();
                 pictureBox1.Image = null;
                 pictureBox1.Invalidate();
-
-                txtStatus.Text = @"Disconnect Camera";
+                Console("Disconnect Camera.");
                 EnableUI(false);
             }
             else
@@ -78,20 +70,35 @@ namespace IpCam
                 VideoSource = new VideoCaptureDevice(VideoDevices[cbbCamName.SelectedIndex].MonikerString);
                 VideoSource.NewFrame += videoSource_NewFrame;
                 VideoSource.Start();
-
-                txtStatus.Text = @"Connected Cam";
+                Console("Connected Camera.");
                 EnableUI(true);
             }
         }
 
-
-  
         private void btnRecord_Click(object sender, EventArgs e)
         {
-            Directory.CreateDirectory(@"D:\" + txtCamName.Text);
+            // ถ้ายังไม่เชื่อมต่อ Camera ให้ บอกให้กลับไปต่อก่อน
+            if (!VideoSource.IsRunning)
+            {
+                MessageBox.Show(@"Please Select Camera And Connect");
+                return;
+            }
 
-            timer.Interval = (int.Parse(cbbTimeInterval.Text) * 1000);
-            timer.Start();
+            // ถ้ายังไม่มี Folder ให้ สร้างใหม่
+            if (!Directory.Exists(txtParthSave.Text.Trim()))
+            {
+                Directory.CreateDirectory(txtParthSave.Text.Trim());
+                Console("Create Save Directory " + txtParthSave.Text.Trim());
+            }
+
+            // ถ้ายังไม่มี Folder ให้ สร้างใหม่
+            //if (!Directory.Exists(txtParthPreview.Text.Trim()))
+            //{
+            //    Directory.CreateDirectory(txtParthPreview.Text.Trim());
+            //    Console("Create Preview Directory " + txtParthPreview.Text.Trim());
+            //}
+
+            bgSaveImage.RunWorkerAsync();
         }
 
         private void btnStop_Click(object sender, EventArgs e)
@@ -138,43 +145,48 @@ namespace IpCam
 
         private void bgSaveImage_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            try
+            Console("Start Record");
+
+            while (true)
             {
-                if (pictureBox1.Image != null)
+                try
                 {
+                    var bmp1 = new Bitmap(pictureBox1.Image);
+
                     var parthSave = txtParthSave.Text + "\\" + FrameNumber + ".bmp";
                     var parthPreview = txtParthPreview.Text;
 
-                    QualitySave = int.Parse(textQualitySave.Text);
-                    QualityPreview = int.Parse(txtQualityPreview.Text);
+                    var qualitySave = int.Parse(textQualitySave.Text);
+                    var qualityPreview = int.Parse(txtQualityPreview.Text);
 
-                    Bitmap bmp1 = new Bitmap(pictureBox1.Image);
-                    ImageCodecInfo jpgEncoder = GetEncoder(ImageFormat.Jpeg);
-                    System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
-                    EncoderParameters myEncoderParameters = new EncoderParameters(1);
+                    var jpgEncoder = GetEncoder(ImageFormat.Jpeg);
+                    var myEncoderParameters = new EncoderParameters(1);
 
-                    EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, QualitySave);
-                    myEncoderParameters.Param[0] = myEncoderParameter;
+                    myEncoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, qualitySave);
                     bmp1.Save(parthSave, jpgEncoder, myEncoderParameters);
 
-                    EncoderParameter myEncoderParameter2 = new EncoderParameter(myEncoder, QualityPreview);
-                    myEncoderParameters.Param[0] = myEncoderParameter2;
+                    myEncoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, qualityPreview);
                     bmp1.Save(parthPreview, jpgEncoder, myEncoderParameters);
 
-                    this.Invoke((MethodInvoker)delegate()
-                    {
-                        txtFrame.Text = FrameNumber.ToString();
-                    });
-
+                    this.Invoke((MethodInvoker)delegate() { txtFrame.Text = FrameNumber.ToString(); });
                     FrameNumber++;
                 }
-            }
-            catch
-            {
-                // ignored
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                }
+
+                Thread.Sleep(1000);
             }
         }
 
+        private void Console(string str)
+        {
+            this.Invoke((MethodInvoker)delegate()
+            {
+                txtConsole.AppendText(str + Environment.NewLine);
+            });
+        }
 
         private void EnableUI(bool enable)
         {
@@ -182,7 +194,6 @@ namespace IpCam
             btnRecord.Enabled = enable;
             btnStop.Enabled = enable;
             txtFrame.Enabled = enable;
-            txtStatus.Enabled = enable;
             txtParthSave.Enabled = enable;
             txtParthPreview.Enabled = enable;
             textQualitySave.Enabled = enable;
@@ -191,6 +202,5 @@ namespace IpCam
             txtHours.Enabled = enable;
             txtMinute.Enabled = enable;
         }
-
     }
 }

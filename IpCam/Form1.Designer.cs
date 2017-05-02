@@ -39,9 +39,7 @@
             this.cbbCamName = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtFrame = new System.Windows.Forms.TextBox();
-            this.txtStatus = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.txtParthSave = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -177,15 +175,6 @@
             this.txtFrame.TabIndex = 9;
             this.txtFrame.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // txtStatus
-            // 
-            this.txtStatus.Enabled = false;
-            this.txtStatus.Location = new System.Drawing.Point(236, 228);
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(188, 20);
-            this.txtStatus.TabIndex = 10;
-            this.txtStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -194,15 +183,6 @@
             this.label4.Size = new System.Drawing.Size(52, 13);
             this.label4.TabIndex = 11;
             this.label4.Text = "Frames@";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(192, 232);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
-            this.label5.TabIndex = 12;
-            this.label5.Text = "Status";
             // 
             // txtParthSave
             // 
@@ -409,9 +389,7 @@
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtParthSave);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.txtStatus);
             this.Controls.Add(this.txtFrame);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cbbCamName);
@@ -447,9 +425,7 @@
         private System.Windows.Forms.ComboBox cbbCamName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtFrame;
-        private System.Windows.Forms.TextBox txtStatus;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtParthSave;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
