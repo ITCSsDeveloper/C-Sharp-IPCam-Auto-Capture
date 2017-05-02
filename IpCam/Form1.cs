@@ -1,6 +1,7 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
 using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -12,12 +13,9 @@ namespace IpCam
 {
     public partial class Form1 : Form
     {
-        private int k = 1;
-        private int QualitySave = 60;
-        private int QualityPreview = 35;
-
-        private DateTime now = DateTime.Now;
-        private bool flag = true;
+        private int FrameNumber { get; set; }
+        private int QualitySave { get; set; }
+        private int QualityPreview { get; set; }
 
         private FilterInfoCollection VideoDevices { get; set; }
         private VideoCaptureDevice VideoSource { get; set; }
@@ -26,49 +24,126 @@ namespace IpCam
         {
             InitializeComponent();
 
+            FrameNumber = 1;
+            QualitySave = 60;
+            QualityPreview = 35;
+
             VideoSource = new VideoCaptureDevice();
             VideoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            // Add Video Devices To Combo
             foreach (FilterInfo device in VideoDevices)
             {
                 cbbCamName.Items.Add(device.Name);
             }
 
             cbbCamName.SelectedIndex = 0;
+            cbbTimeInterval.SelectedIndex = 0;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+            if (now.Hour == txtHours.Value && now.Minute == txtMinute.Value)
+            {
+                if (!bgMoveImage.IsBusy)
+                {
+                    bgMoveImage.RunWorkerAsync();
+                }
+            }
         }
 
         private void videoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            Thread.Sleep(100);
             pictureBox1.Image = (Bitmap)eventArgs.Frame.Clone();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private ImageCodecInfo GetEncoder(ImageFormat format)
+        {
+            return ImageCodecInfo.GetImageDecoders().FirstOrDefault(codec => codec.FormatID == format.Guid);
+        }
+
+        private void btnConnectCam_Click(object sender, EventArgs e)
         {
             if (VideoSource.IsRunning)
             {
-                timer1.Stop();
+                VideoSource.Stop();
+                pictureBox1.Image = null;
+                pictureBox1.Invalidate();
+
+                txtStatus.Text = @"Disconnect Camera";
+                EnableUI(false);
+            }
+            else
+            {
+                VideoSource = new VideoCaptureDevice(VideoDevices[cbbCamName.SelectedIndex].MonikerString);
+                VideoSource.NewFrame += videoSource_NewFrame;
+                VideoSource.Start();
+
+                txtStatus.Text = @"Connected Cam";
+                EnableUI(true);
+            }
+        }
+
+
+  
+        private void btnRecord_Click(object sender, EventArgs e)
+        {
+            Directory.CreateDirectory(@"D:\" + txtCamName.Text);
+
+            timer.Interval = (int.Parse(cbbTimeInterval.Text) * 1000);
+            timer.Start();
+        }
+
+        private void btnStop_Click(object sender, EventArgs e)
+        {
+            if (VideoSource.IsRunning)
+            {
+                timer.Stop();
                 VideoSource.Stop();
                 pictureBox1.Image = null;
                 pictureBox1.Invalidate();
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void bgMoveImage_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            Thread TT = new Thread(Capture);
-            TT.Start();
+            var cameraName = txtCamName.Text;
+
+            try
+            {
+                string folderName1 = DateTime.Now.Day + "-" + DateTime.Now.Month + "-" + DateTime.Now.Year + "_" + cameraName;
+
+                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText("Start BackUP! " + DateTime.Now + "\n"); });
+
+                Directory.Move(@"D:\" + cameraName, @"D:\" + folderName1);
+                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText(folderName1 + " Coppy! \n"); });
+
+                Directory.CreateDirectory(@"D:\" + cameraName);
+                this.Invoke((MethodInvoker)delegate()
+                {
+                    txtConsole.AppendText(cameraName + " create! \n");
+                    txtConsole.AppendText("Finished BackUP! " + DateTime.Now + "\n");
+                });
+            }
+            catch
+            {
+                // ignored
+            }
+
+            FrameNumber = 1;
+            this.Invoke((MethodInvoker)delegate() { txtConsole.ScrollToCaret(); });
+
+            Thread.Sleep(1000 * 65);
         }
 
-        private void Capture()
+        private void bgSaveImage_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
             try
             {
                 if (pictureBox1.Image != null)
                 {
-                    string parth_save = txtParthSave.Text + "\\" + k + ".bmp";
-                    string parth_preview = txtParthPreview.Text;
+                    var parthSave = txtParthSave.Text + "\\" + FrameNumber + ".bmp";
+                    var parthPreview = txtParthPreview.Text;
 
                     QualitySave = int.Parse(textQualitySave.Text);
                     QualityPreview = int.Parse(txtQualityPreview.Text);
@@ -80,115 +155,42 @@ namespace IpCam
 
                     EncoderParameter myEncoderParameter = new EncoderParameter(myEncoder, QualitySave);
                     myEncoderParameters.Param[0] = myEncoderParameter;
-                    bmp1.Save(parth_save, jpgEncoder, myEncoderParameters);
+                    bmp1.Save(parthSave, jpgEncoder, myEncoderParameters);
 
                     EncoderParameter myEncoderParameter2 = new EncoderParameter(myEncoder, QualityPreview);
                     myEncoderParameters.Param[0] = myEncoderParameter2;
-                    bmp1.Save(parth_preview, jpgEncoder, myEncoderParameters);
+                    bmp1.Save(parthPreview, jpgEncoder, myEncoderParameters);
 
                     this.Invoke((MethodInvoker)delegate()
                     {
-                        txtFrame.Text = "" + k;
+                        txtFrame.Text = FrameNumber.ToString();
                     });
 
-                    k++;
+                    FrameNumber++;
                 }
             }
-            catch (Exception e)
+            catch
             {
+                // ignored
             }
         }
 
-        private ImageCodecInfo GetEncoder(ImageFormat format)
+
+        private void EnableUI(bool enable)
         {
-            var codecs = ImageCodecInfo.GetImageDecoders();
-            return codecs.FirstOrDefault(codec => codec.FormatID == format.Guid);
+            cbbTimeInterval.Enabled = enable;
+            btnRecord.Enabled = enable;
+            btnStop.Enabled = enable;
+            txtFrame.Enabled = enable;
+            txtStatus.Enabled = enable;
+            txtParthSave.Enabled = enable;
+            txtParthPreview.Enabled = enable;
+            textQualitySave.Enabled = enable;
+            txtQualityPreview.Enabled = enable;
+            txtCamName.Enabled = enable;
+            txtHours.Enabled = enable;
+            txtMinute.Enabled = enable;
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            now = DateTime.Now;
-            if (flag == false)
-            {
-                return;
-            }
-
-            if (now.Hour.ToString() == txtHours.Text && now.Minute.ToString() == txtMinute.Text)
-            {
-                Thread TT = new Thread(MoveImage);
-                TT.Start();
-            }
-        }
-
-        private void MoveImage()
-        {
-            flag = false; // กัน timer2 เข้ามาทำ ขณะที่ทำงานอยู่
-
-            string cameraName = txtCamName.Text;
-
-            try
-            {
-                string folder_name1 = now.Day.ToString() + "-" + now.Month.ToString() + "-" + now.Year.ToString() + "_" + cameraName;
-
-                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText("Start BackUP! " + now.ToString() + "\n"); });
-
-                Directory.Move(@"D:\" + cameraName, @"D:\" + folder_name1);
-                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText(folder_name1 + " Coppy! \n"); });
-
-                Directory.CreateDirectory(@"D:\" + cameraName);
-                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText(cameraName + " create! \n"); });
-
-                this.Invoke((MethodInvoker)delegate() { txtConsole.AppendText("Finished BackUP! " + now.ToString() + "\n"); });
-            }
-            catch (IOException ex)
-            { }
-
-            k = 1;
-
-            this.Invoke((MethodInvoker)delegate() { txtConsole.ScrollToCaret(); });
-
-            Thread.Sleep(1000 * 65);
-            flag = true;
-        }
-
-        private void btnConnectCam_Click(object sender, EventArgs e)
-        {
-            if (VideoSource.IsRunning)
-            {
-                VideoSource.Stop();
-                pictureBox1.Image = null;
-                pictureBox1.Invalidate();
-            }
-            else
-            {
-                VideoSource = new VideoCaptureDevice(VideoDevices[cbbCamName.SelectedIndex].MonikerString);
-                VideoSource.NewFrame += videoSource_NewFrame;
-                VideoSource.Start();
-                txtStatus.Text = @"Connected Cam";
-            }
-        }
-
-        private void btnRecord_Click(object sender, EventArgs e)
-        {
-            if (timer1.Enabled == false)
-            {
-                try
-                {
-                    string cameraName = txtCamName.Text;
-                    Directory.CreateDirectory(@"D:\" + cameraName);
-                }
-                catch (Exception ex)
-                { }
-
-                int t = int.Parse(cbbTimeInterval.Text);
-                timer1.Interval = (t * 1000);
-                timer1.Start();
-            }
-            else
-            {
-                timer1.Stop();
-                timer2.Stop();
-            }
-        }
     }
 }

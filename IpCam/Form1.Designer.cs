@@ -91,6 +91,7 @@
             // 
             // btnRecord
             // 
+            this.btnRecord.Enabled = false;
             this.btnRecord.Location = new System.Drawing.Point(248, 134);
             this.btnRecord.Name = "btnRecord";
             this.btnRecord.Size = new System.Drawing.Size(176, 37);
@@ -101,6 +102,7 @@
             // 
             // btnStop
             // 
+            this.btnStop.Enabled = false;
             this.btnStop.Location = new System.Drawing.Point(248, 177);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(176, 37);
@@ -121,6 +123,7 @@
             // cbbTimeInterval
             // 
             this.cbbTimeInterval.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbTimeInterval.Enabled = false;
             this.cbbTimeInterval.FormattingEnabled = true;
             this.cbbTimeInterval.Items.AddRange(new object[] {
             "1",
@@ -167,6 +170,7 @@
             // 
             // txtFrame
             // 
+            this.txtFrame.Enabled = false;
             this.txtFrame.Location = new System.Drawing.Point(97, 228);
             this.txtFrame.Name = "txtFrame";
             this.txtFrame.Size = new System.Drawing.Size(71, 20);
@@ -175,6 +179,7 @@
             // 
             // txtStatus
             // 
+            this.txtStatus.Enabled = false;
             this.txtStatus.Location = new System.Drawing.Point(236, 228);
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.Size = new System.Drawing.Size(188, 20);
@@ -201,6 +206,7 @@
             // 
             // txtParthSave
             // 
+            this.txtParthSave.Enabled = false;
             this.txtParthSave.Location = new System.Drawing.Point(97, 254);
             this.txtParthSave.Name = "txtParthSave";
             this.txtParthSave.Size = new System.Drawing.Size(327, 20);
@@ -245,6 +251,7 @@
             // 
             // txtParthPreview
             // 
+            this.txtParthPreview.Enabled = false;
             this.txtParthPreview.Location = new System.Drawing.Point(97, 280);
             this.txtParthPreview.Name = "txtParthPreview";
             this.txtParthPreview.Size = new System.Drawing.Size(327, 20);
@@ -253,7 +260,6 @@
             // 
             // timer
             // 
-            this.timer.Enabled = true;
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
@@ -288,12 +294,14 @@
             // 
             this.txtConsole.Location = new System.Drawing.Point(441, 177);
             this.txtConsole.Name = "txtConsole";
+            this.txtConsole.ReadOnly = true;
             this.txtConsole.Size = new System.Drawing.Size(218, 153);
             this.txtConsole.TabIndex = 26;
             this.txtConsole.Text = "";
             // 
             // txtCamName
             // 
+            this.txtCamName.Enabled = false;
             this.txtCamName.Location = new System.Drawing.Point(502, 106);
             this.txtCamName.Name = "txtCamName";
             this.txtCamName.Size = new System.Drawing.Size(74, 20);
@@ -311,6 +319,7 @@
             // 
             // textQualitySave
             // 
+            this.textQualitySave.Enabled = false;
             this.textQualitySave.Location = new System.Drawing.Point(441, 25);
             this.textQualitySave.Name = "textQualitySave";
             this.textQualitySave.Size = new System.Drawing.Size(135, 20);
@@ -323,6 +332,7 @@
             // 
             // txtQualityPreview
             // 
+            this.txtQualityPreview.Enabled = false;
             this.txtQualityPreview.Location = new System.Drawing.Point(441, 79);
             this.txtQualityPreview.Name = "txtQualityPreview";
             this.txtQualityPreview.Size = new System.Drawing.Size(135, 20);
@@ -343,6 +353,7 @@
             // 
             // txtHours
             // 
+            this.txtHours.Enabled = false;
             this.txtHours.Location = new System.Drawing.Point(445, 152);
             this.txtHours.Maximum = new decimal(new int[] {
             23,
@@ -360,6 +371,7 @@
             // 
             // txtMinute
             // 
+            this.txtMinute.Enabled = false;
             this.txtMinute.Location = new System.Drawing.Point(510, 151);
             this.txtMinute.Maximum = new decimal(new int[] {
             60,
